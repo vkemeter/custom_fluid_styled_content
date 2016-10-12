@@ -1,0 +1,206 @@
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Boxes {
+						iconIdentifier = content-textmedia
+                        title = Simple Content Boxes
+                        description = Place a simple Content Box
+                        tt_content_defValues {
+                            CType = Boxes
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Boxes)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Boxes = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Boxes/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Bulletpoints {
+						iconIdentifier = content-bullets
+                        title = Bulletpoint Entry
+                        description = Bulletpoint Entry for Bulletpoint List
+                        tt_content_defValues {
+                            CType = Bulletpoints
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Bulletpoints)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Bulletpoints = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Bulletpoints/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Button {
+						iconIdentifier = content-textmedia
+                        title = Simple Button
+                        description = Place a simple Button
+                        tt_content_defValues {
+                            CType = Button
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Button)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Button = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Button/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+				header = My Very Special Elements
+                elements {
+                    Example {
+						iconIdentifier = content-textmedia
+                        title = Example Content Element
+                        description = This is just an easy example Content Element
+                        tt_content_defValues {
+                            CType = Example
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Example)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Example = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Backend/Example.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    s7_Header {
+						iconIdentifier = content-header
+                        title = Simple Header
+                        description = Place a simple Header
+                        tt_content_defValues {
+                            CType = s7_Header
+							header_layout = s7_header
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(s7_Header)
+        }
+    }
+}
+
+TCEFORM.tt_content.header_layout.addItems  {
+	s7_header = Simple Header
+}
+
+mod.web_layout.tt_content.preview {
+	s7_Header = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Header/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Slider {
+						iconIdentifier = content-bullets
+                        title = Slider Element
+                        description = Adds a Slider Element
+                        tt_content_defValues {
+                            CType = Slider
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Slider)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Slider = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Slider/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Teaser {
+						iconIdentifier = content-textmedia
+                        title = Teaser
+                        description = Teaser Element / Big Image & Text
+                        tt_content_defValues {
+                            CType = Teaser
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Teaser)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Teaser = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Teaser/Templates/Backend/Layout.html
+}
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+                elements {
+                    Testimonial {
+						iconIdentifier = content-textmedia
+                        title = Testimonial
+                        description = Testimonial Element / Big Image & Text
+                        tt_content_defValues {
+                            CType = Teaser
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Testimonial)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Testimonial = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Testimonial/Templates/Backend/Layout.html
+}

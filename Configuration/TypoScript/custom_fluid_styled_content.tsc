@@ -1,0 +1,168 @@
+tt_content{
+	Boxes = FLUIDTEMPLATE
+	Boxes {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Boxes/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Boxes/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Boxes/Templates/Layout/
+		}
+	}
+}
+tt_content{
+	Bulletpoints = FLUIDTEMPLATE
+	Bulletpoints {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Bulletpoints/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Bulletpoints/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Bulletpoints/Templates/Layout/
+		}
+	}
+}
+tt_content{
+	Button = FLUIDTEMPLATE
+	Button {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Button/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Button/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Button/Templates/Layout/
+		}
+	}
+}
+tt_content{
+	Example = FLUIDTEMPLATE
+	Example {
+	    templateName = Example
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Layout/
+		}
+
+		dataProcessing {
+			10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+			10 {
+				references.fieldName = image
+				as = sliderImages
+			}
+		}
+	}
+}
+tt_content{
+	s7_Header = FLUIDTEMPLATE
+	s7_Header {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Header/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Header/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Header/Templates/Layout/
+		}
+	}
+}
+tt_content{
+	Slider = FLUIDTEMPLATE
+	Slider {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Slider/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Slider/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Slider/Templates/Layout/
+		}
+	}
+}
+tt_content{
+	Teaser = FLUIDTEMPLATE
+	Teaser {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Teaser/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Teaser/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Teaser/Templates/Layout/
+		}
+
+		dataProcessing {
+			10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+			10 {
+				references.fieldName = image
+				as = sliderImages
+			}
+		}
+	}
+}
+tt_content {
+	Testimonial = FLUIDTEMPLATE
+	Testimonial {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Testimonial/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Testimonial/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Testimonial/Templates/Layout/
+		}
+
+		dataProcessing {
+			10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+			10 {
+				references.fieldName = image
+				as = sliderImages
+			}
+		}
+	}
+}

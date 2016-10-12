@@ -1,0 +1,26 @@
+tt_content{
+	Example = FLUIDTEMPLATE
+	Example {
+	    templateName = Example
+
+		templateRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Layout/
+		}
+
+		dataProcessing {
+			10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+			10 {
+				references.fieldName = image
+				as = sliderImages
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+				header = My Very Special Elements
+                elements {
+                    Example {
+						iconIdentifier = content-textmedia
+                        title = Example Content Element
+                        description = This is just an easy example Content Element
+                        tt_content_defValues {
+                            CType = Example
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList(Example)
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	Example = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Backend/Example.html
+}
