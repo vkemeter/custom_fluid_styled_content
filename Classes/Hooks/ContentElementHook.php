@@ -35,6 +35,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
         $this->addTypoScripts('TypoScript');
         $this->addTca();
         $this->addSql();
+        $this->addAssets();
     }
 
     /**
@@ -84,13 +85,10 @@ class ContentElementHook implements ClearCacheActionsHookInterface
             $add = "\r\n\n";
             $add .= $this->startToken;
             $add .= "\r\n";
-
             foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/TCA/*.php') as $tca) {
-                $ce = pathinfo($tca)['filename'];
-                $add .= 'include_once("'. $tca .'"); # '. $ce;
+                $add .= "include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'". substr($tca, strlen(ExtensionManagementUtility::extPath('CustomFluidStyledContent'))) ."');";
                 $add .= "\r\n";
             }
-
             $add .= $this->endToken;
 
             $file = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Configuration/TCA/Overrides/tt_content.php', 'w');
@@ -170,5 +168,29 @@ class ContentElementHook implements ClearCacheActionsHookInterface
                 fwrite($file, $newSqlFile . $add);
                 fclose($file);
             }
+    }
+
+    /**
+     * copies all possible assets to Resources/Public Folder due to access restrictions
+     */
+    private function addAssets()
+    {
+        $dest = ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Public/';
+
+        if (file_exists($dest)) {
+            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
+                if (is_dir($assetFolder)) {
+                    if (!file_exists($dest . pathinfo($assetFolder)['basename'])) {
+                        mkdir($dest . pathinfo($assetFolder)['basename']);
+                    }
+
+                    foreach(glob($assetFolder .'/*') as $file) {
+                        if (is_file($file)) {
+                            copy($file, $dest . pathinfo($assetFolder)['basename'] . '/' . pathinfo($file)['basename']);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
