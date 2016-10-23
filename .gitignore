@@ -19,3 +19,6 @@
 # Ignore temp directory.
 /typo3temp/
 /Configuration/PageTS/custom_fluid_styled_content.tsc
+/Configuration/TypoScript/custom_fluid_styled_content.tsc
+/ext_tables.sql
+/Configuration/TCA/Overrides/tt_content.php
