@@ -1,0 +1,8 @@
+# CustomFluidStyledContent Preset TypoScript File
+# for {{NAME}}
+tt_content {
+	{{NAME|strtolower}} = FLUIDTEMPLATE
+	{{NAME|strtolower}} {
+		$pathVariables
+	}
+}

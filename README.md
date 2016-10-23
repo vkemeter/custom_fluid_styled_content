@@ -15,5 +15,6 @@ This small Extension helps You creating Custom Fluid Styled Content Elements for
 
 * Simple. Just merging and copying files for you.
 * Keep Your Content-Elements cleaner and more reusable.
+* No Custom PageTS or TypoScript Files needed (optional).
 
 _Feel free to contribute._

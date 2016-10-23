@@ -1,0 +1,25 @@
+# CustomFluidStyledContent Preset PageTS File
+# for {{NAME}}
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+				header = CustomFluidStyledContent
+                elements {
+					{{NAME|strtolower}} {
+						# need to build a posibility to add
+						# a preset icon. not done yet.
+						iconIdentifier = custom-fluid-styled-content-{{NAME|strtolower}}
+                        title = {{NAME}}
+                        description = {{NAME}}
+                        tt_content_defValues {
+                            CType = {{NAME|strtolower}}
+                        }
+                    }
+               }
+            }
+
+			customFluidStyledContent.show := addToList({{NAME|strtolower}})
+        }
+    }
+}

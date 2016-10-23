@@ -12,10 +12,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'volker@kemeter.de',
 	'state' => 'alpha',
 	'clearCacheOnLoad' => 1,
-	'version' => '0.1',
+	'version' => '0.2',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-7.6.99',
+			'typo3' => '7.6.0-8.4.*',
 		),
 		'conflicts' => array(
 		),
