@@ -2,18 +2,46 @@
 
 defined('TYPO3_MODE') || die('Access denied.');
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="DIR:EXT:CustomFluidStyledContent/Configuration/PageTS/" extensions="tsc">');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="DIR:EXT:CustomFluidStyledContent/Configuration/TypoScript/" extensions="tsc">');
+call_user_func(
+    function ($extKey) {
 
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="DIR:EXT:'. $extKey .'/Configuration/PageTS/" extensions="tsc">');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="DIR:EXT:'. $extKey .'/Configuration/TypoScript/" extensions="tsc">');
 
-/**
- * show cache wizard only in dev mode
- */
-if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() === true) {
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions'][$_EXTKEY] = \VK\CustomFluidStyledContent\Hooks\ContentElementHook::class;
+        /**
+         * show cache wizard only in dev mode
+         */
+        if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() === true) {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions'][$extKey] = \VK\CustomFluidStyledContent\Hooks\ContentElementHook::class;
 
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(
-        'CustomFluidStyledContent::addContentElements',
-        'VK\\CustomFluidStyledContent\\Hooks\\ContentElementHook->addContentElements'
-    );
-}
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(
+                'CustomFluidStyledContent::addContentElements',
+                'VK\\CustomFluidStyledContent\\Hooks\\ContentElementHook->addContentElements'
+            );
+        }
+
+        // load / register assets
+        if (TYPO3_MODE === 'BE') {
+            foreach(\VK\CustomFluidStyledContent\Hooks\ContentElementHook::getAssets() as $asset => $files) {
+                switch (strtolower($asset)) {
+                    case 'icons':
+                        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+
+                        foreach($files as $icon) {
+                            switch (\GuzzleHttp\Psr7\mimetype_from_filename($icon)) {
+                                case 'image/png':
+                                    $iconRegistry->registerIcon(
+                                        pathinfo($icon)['filename'],
+                                        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+                                        ['source' => 'EXT:' . $extKey . '/Resources/Public/Icons/' . pathinfo($icon)['basename']]
+                                    );
+                                    break;
+                            }
+                        }
+                    break;
+                }
+            }
+        }
+    },
+    $_EXTKEY
+);

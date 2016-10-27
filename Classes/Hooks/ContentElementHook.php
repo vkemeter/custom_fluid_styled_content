@@ -20,11 +20,18 @@ class ContentElementHook implements ClearCacheActionsHookInterface
     private $endToken = '### CFSC TOKEN END ###';
 
     /**
+     * all public assets
+     *
+     * @var array
+     */
+    private static $assets = array();
+
+    /**
      * Add an entry to the CacheMenuItems array
      *
      * @param array $cacheActions Array of CacheMenuItems
      * @param array $optionValues Array of AccessConfigurations-identifiers (typically  used by userTS with options.clearCache.identifier)
-     * @return
+     * @return void
      */
     public function manipulateCacheActions(&$cacheActions, &$optionValues) {
         $cacheActions[] = array(
@@ -58,7 +65,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      *
      * it handles both, the pagets and the typoscript files
      *
-     * @param string $folder
+     * @param string $tsType
      */
     private function addTypoScripts($tsType = 'TypoScript') {
         $ts = '';
@@ -277,5 +284,23 @@ class ContentElementHook implements ClearCacheActionsHookInterface
                 }
             }
         }
+    }
+
+    public static function getAssets() {
+        $path = ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Public/';
+
+        if (file_exists($path)) {
+            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
+                if (is_dir($assetFolder)) {
+                    foreach(glob($assetFolder .'/*') as $file) {
+                        if (is_file($file)) {
+                            self::$assets[pathinfo($assetFolder)['basename']][] = $file;
+                        }
+                    }
+                }
+            }
+        }
+
+        return self::$assets;
     }
 }
