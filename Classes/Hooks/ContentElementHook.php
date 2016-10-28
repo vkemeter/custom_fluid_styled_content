@@ -69,7 +69,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      */
     private function addTypoScripts($tsType = 'TypoScript') {
         $ts = '';
-        foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*') as $element) {
+        foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*') as $element) {
             $tsFolder = glob($element .'/'. $tsType .'/*');
 
             // A File is available.
@@ -87,7 +87,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
                 // it is also possible to hand over a php function for string manipulation
                 // like strtolower
                 else {
-                    $presetTsFile = file_get_contents(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Resources/Private/Presets/'. $tsType .'.tsc');
+                    $presetTsFile = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Resources/Private/Presets/'. $tsType .'.tsc');
                     preg_match_all("{{(.*)}}", $presetTsFile, $variables);
 
                     foreach($variables[0] as $key => $var) {
@@ -148,7 +148,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
         // the file will be overwritten everytime you renew the content elements
         // so all individual modifyings in that file are getting lost.
         if ($ts != '') {
-            $script = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Configuration/'. $tsType .'/custom_fluid_styled_content.tsc', 'w');
+            $script = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Configuration/'. $tsType .'/custom_fluid_styled_content.tsc', 'w');
             fwrite($script, $ts);
             fclose($script);
         }
@@ -165,8 +165,8 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      *
      */
     private function addTca() {
-        if (file_exists(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Configuration/TCA/Overrides/tt_content.php')) {
-            $override = file_get_contents(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Configuration/TCA/Overrides/tt_content.php');
+        if (file_exists(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/tt_content.php')) {
+            $override = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/tt_content.php');
 
             if (strpos($override, $this->startToken) !== false) {
                 $start = strpos($override, $this->startToken) + strlen($this->startToken);
@@ -177,24 +177,24 @@ class ContentElementHook implements ClearCacheActionsHookInterface
             $add = "\r\n\n";
             $add .= $this->startToken;
             $add .= "\r\n";
-            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/TCA/*.php') as $tca) {
-                $add .= "include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'". substr($tca, strlen(ExtensionManagementUtility::extPath('CustomFluidStyledContent'))) ."');";
+            foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/TCA/*.php') as $tca) {
+                $add .= "include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'". substr($tca, strlen(ExtensionManagementUtility::extPath('custom_fluid_styled_content'))) ."');";
                 $add .= "\r\n";
             }
             $add .= $this->endToken;
 
-            $file = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Configuration/TCA/Overrides/tt_content.php', 'w');
+            $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/tt_content.php', 'w');
             fwrite($file, $override . $add);
             fclose($file);
         }
             else {
-                $newTtContentFile = file_get_contents(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Resources/Private/Presets/tt_content.php');
+                $newTtContentFile = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Resources/Private/Presets/tt_content.php');
 
                 $add = "\r\n\n";
                 $add .= $this->startToken;
                 $add .= "\r\n";
 
-                foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/TCA/*.php') as $tca) {
+                foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/TCA/*.php') as $tca) {
                     $ce = pathinfo($tca)['filename'];
                     $add .= 'include_once("'. $tca .'"); # '. $ce;
                     $add .= "\r\n";
@@ -202,7 +202,7 @@ class ContentElementHook implements ClearCacheActionsHookInterface
 
                 $add .= $this->endToken;
 
-                $file = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Configuration/TCA/Overrides/tt_content.php', 'w');
+                $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/tt_content.php', 'w');
                 fwrite($file, $newTtContentFile . $add);
                 fclose($file);
             }
@@ -219,8 +219,8 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      *
      */
     private function addSql() {
-        if (file_exists(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'ext_tables.sql')) {
-            $override = file_get_contents(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'ext_tables.sql');
+        if (file_exists(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'ext_tables.sql')) {
+            $override = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'ext_tables.sql');
 
             if (strpos($override, $this->startToken) !== false) {
                 $start = strpos($override, $this->startToken) + strlen($this->startToken);
@@ -232,31 +232,31 @@ class ContentElementHook implements ClearCacheActionsHookInterface
             $add .= $this->startToken;
             $add .= "\r\n";
 
-            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/SQL/*.sql') as $sql) {
+            foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/SQL/*.sql') as $sql) {
                 $add .= file_get_contents($sql);
             }
 
             $add .= $this->endToken;
 
 
-            $file = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'ext_tables.sql', 'w');
+            $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'ext_tables.sql', 'w');
             fwrite($file, $override . $add);
             fclose($file);
         }
             else {
-                $newSqlFile = file_get_contents(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'Resources/Private/Presets/ext_tables.sql');
+                $newSqlFile = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Resources/Private/Presets/ext_tables.sql');
 
                 $add = "\r\n\n";
                 $add .= $this->startToken;
                 $add .= "\r\n";
 
-                foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/SQL/*.sql') as $sql) {
+                foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/SQL/*.sql') as $sql) {
                     $add .= file_get_contents($sql);
                 }
 
                 $add .= $this->endToken;
 
-                $file = fopen(ExtensionManagementUtility::extPath('CustomFluidStyledContent') .'ext_tables.sql', 'w');
+                $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'ext_tables.sql', 'w');
                 fwrite($file, $newSqlFile . $add);
                 fclose($file);
             }
@@ -267,10 +267,10 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      */
     private function addAssets()
     {
-        $dest = ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Public/';
+        $dest = ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Public/';
 
         if (file_exists($dest)) {
-            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
+            foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
                 if (is_dir($assetFolder)) {
                     if (!file_exists($dest . pathinfo($assetFolder)['basename'])) {
                         mkdir($dest . pathinfo($assetFolder)['basename']);
@@ -287,10 +287,10 @@ class ContentElementHook implements ClearCacheActionsHookInterface
     }
 
     public static function getAssets() {
-        $path = ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Public/';
+        $path = ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Public/';
 
         if (file_exists($path)) {
-            foreach (glob(ExtensionManagementUtility::extPath('CustomFluidStyledContent') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
+            foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/Assets/*') as $assetFolder) {
                 if (is_dir($assetFolder)) {
                     foreach(glob($assetFolder .'/*') as $file) {
                         if (is_file($file)) {
