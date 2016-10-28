@@ -22,5 +22,5 @@ mod.wizards {
 }
 
 mod.web_layout.tt_content.preview {
-	Example = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Backend/Example.html
+	Example = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/Example/Templates/Backend/Example.html
 }

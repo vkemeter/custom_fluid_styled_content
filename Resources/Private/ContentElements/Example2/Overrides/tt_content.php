@@ -1,17 +1,17 @@
 <?php
 call_user_func(
     function () {
-        $name = 'example2';
+        $name = 'Example2';
 
         $tca = [
             'columns' => [
                 'CType' => [
                     'config' => [
                         'items' => [
-                            strtolower($name) => [
+                            $name => [
                                 $name,
                                 $name,
-                                'custom-fluid-styled-content-example2'
+                                'custom-fluid-styled-content-preset'
                             ]
                         ]
                     ]
@@ -53,5 +53,5 @@ call_user_func(
 
         $GLOBALS['TCA']['tt_content'] = array_replace_recursive($GLOBALS['TCA']['tt_content'], $tca);
     },
-    strtolower($name)
+    $name
 );

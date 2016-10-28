@@ -1,30 +1,29 @@
 <?php
 call_user_func(
     function () {
-        $name = 'Example2';
+        $name = 'Example';
 
         $tca = [
             'columns' => [
-              'CType' => [
-                  'config' => [
-                      'items' => [
-                          $name => [
-                              $name,
-                              $name,
-                              $name
-                          ]
-                      ]
-                  ]
-              ]
+                'CType' => [
+                    'config' => [
+                        'items' => [
+                            $name => [
+                                $name,
+                                $name,
+                                $name
+                            ]
+                        ]
+                    ]
+                ]
             ],
             'types' => [
                 $name => [
                     'showitem' => '
                         --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general,
                         header;Headline,
-                        subheader;Sup7Header,
-                        header_layout;Headline type,
-                        rowDescription,
+                        subheader;Subheadline,
+                        bodytext,
                         image,
                         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
                         --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.visibility;visibility,
@@ -34,27 +33,26 @@ call_user_func(
                     'columnsOverrides' => [
                         'header' => [
                             'config' => [
+                                'type' => 'text',
+                                'rows' => 2,
                                 'eval' => 'required'
                             ]
                         ],
                         'subheader' => [
                             'config' => [
-                                'eval' => 'required'
+                                'type' => 'text',
+                                'rows' => 3,
                             ]
                         ],
-                        'image' => [
-                            'config' => [
-                                'maxitems' => '4',
-                                'minitems' => '1'
-                            ]
-                        ],
+                        'bodytext' => [
+                            'defaultExtras' => 'richtext:rte_transform'
+                        ]
                     ],
                 ],
             ],
         ];
 
         $GLOBALS['TCA']['tt_content'] = array_replace_recursive($GLOBALS['TCA']['tt_content'], $tca);
-
     },
     $name
 );

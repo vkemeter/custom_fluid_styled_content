@@ -4,15 +4,15 @@ tt_content{
 	    templateName = Example
 
 		templateRootPaths {
-			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Template/
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/Example/Templates/Template/
 		}
 
 		partialRootPaths {
-			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Partial/
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/Example/Templates/Partial/
 		}
 
 		layoutRootPaths {
-			10 = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/Example/Templates/Layout/
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/Example/Templates/Layout/
 		}
 
 		dataProcessing {

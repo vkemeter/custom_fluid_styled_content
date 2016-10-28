@@ -4,6 +4,7 @@ namespace VK\CustomFluidStyledContent\Hooks;
 use TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class ContentElementHook implements ClearCacheActionsHookInterface
 {
@@ -18,6 +19,12 @@ class ContentElementHook implements ClearCacheActionsHookInterface
      * @var string
      */
     private $endToken = '### CFSC TOKEN END ###';
+
+    /**
+     * array for all the overrides
+     * @var array
+     */
+    private $overrides = array();
 
     /**
      * all public assets
@@ -49,7 +56,8 @@ class ContentElementHook implements ClearCacheActionsHookInterface
     public function addContentElements() {
         $this->addTypoScripts('PageTS');
         $this->addTypoScripts('TypoScript');
-        $this->addTca();
+        $this->addOverrides();
+        # $this->addTca();
         $this->addSql();
         $this->addAssets();
     }
@@ -151,6 +159,55 @@ class ContentElementHook implements ClearCacheActionsHookInterface
             $script = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Configuration/'. $tsType .'/custom_fluid_styled_content.tsc', 'w');
             fwrite($script, $ts);
             fclose($script);
+        }
+    }
+
+    private function addOverrides() {
+        foreach (glob(ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Private/ContentElements/*/Overrides/*.php') as $override) {
+            $this->overrides[pathinfo($override)['basename']][] = $override;
+        }
+
+        foreach($this->overrides as $override => $include) {
+            if (file_exists(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/'. $override)) {
+                $overrideFile = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/'. $override);
+
+                if (strpos($overrideFile, $this->startToken) !== false) {
+                    $start = strpos($overrideFile, $this->startToken) + strlen($this->startToken);
+                    $overrideFile = trim(substr($overrideFile, 0, $start - strlen($this->startToken)));
+                }
+
+                $add = "\r\n\n";
+                $add .= $this->startToken;
+                $add .= "\r\n";
+
+                foreach ($include as $tca) {
+                    $add .= "include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'". substr($tca, strlen(ExtensionManagementUtility::extPath('custom_fluid_styled_content'))) ."');";
+                    $add .= "\r\n";
+                }
+                $add .= $this->endToken;
+
+                $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/'. $override, 'w');
+                fwrite($file, $overrideFile . $add);
+                fclose($file);
+            }
+                else {
+                    $newOverrideFile = file_get_contents(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Resources/Private/Presets/Override.php');
+
+                    $add = "\r\n\n";
+                    $add .= $this->startToken;
+                    $add .= "\r\n";
+
+                    foreach ($include as $tca) {
+                        $add .= "include_once(TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'". substr($tca, strlen(ExtensionManagementUtility::extPath('custom_fluid_styled_content'))) ."');";
+                        $add .= "\r\n";
+                    }
+
+                    $add .= $this->endToken;
+
+                    $file = fopen(ExtensionManagementUtility::extPath('custom_fluid_styled_content') .'Configuration/TCA/Overrides/'. $override, 'w');
+                    fwrite($file, $newOverrideFile . $add);
+                    fclose($file);
+                }
         }
     }
 
@@ -286,6 +343,14 @@ class ContentElementHook implements ClearCacheActionsHookInterface
         }
     }
 
+    /**
+     * returns all the assets in the public folder. handle them in the ext_localconf for example
+     * at this moment only png icons will be added
+     *
+     * in near future svg icons will be added too
+     *
+     * @return array
+     */
     public static function getAssets() {
         $path = ExtensionManagementUtility::extPath('custom_fluid_styled_content') . 'Resources/Public/';
 
