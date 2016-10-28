@@ -6,7 +6,7 @@ mod.wizards {
 				header = My Very Special Elements
                 elements {
                     Example {
-						iconIdentifier = content-textmedia
+						iconIdentifier = Example
                         title = Example Content Element
                         description = This is just an easy example Content Element
                         tt_content_defValues {

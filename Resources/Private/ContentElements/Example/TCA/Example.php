@@ -1,22 +1,24 @@
 <?php
 call_user_func(
     function () {
+        $name = 'Example2';
+
         $tca = [
             'columns' => [
               'CType' => [
                   'config' => [
                       'items' => [
-                          'example' => [
-                              'Example',
-                              'Example',
-                              '/typo3conf/ext/CustomFluidStyledContent/ext_icon.gif'
+                          $name => [
+                              $name,
+                              $name,
+                              $name
                           ]
                       ]
                   ]
               ]
             ],
             'types' => [
-                'Example' => [
+                $name => [
                     'showitem' => '
                         --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general,
                         header;Headline,
@@ -54,5 +56,5 @@ call_user_func(
         $GLOBALS['TCA']['tt_content'] = array_replace_recursive($GLOBALS['TCA']['tt_content'], $tca);
 
     },
-    'example'
+    $name
 );

@@ -22,11 +22,19 @@ call_user_func(
 
         // load / register assets
         if (TYPO3_MODE === 'BE') {
+            $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+
+            // register preset icon
+            $iconRegistry->registerIcon(
+                'custom-fluid-styled-content-preset',
+                \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+                ['source' => 'EXT:' . $extKey . '/Resources/Public/Icons/custom-fluid-styled-content-preset.svg']
+            );
+
+            // add all other icons
             foreach(\VK\CustomFluidStyledContent\Hooks\ContentElementHook::getAssets() as $asset => $files) {
                 switch (strtolower($asset)) {
                     case 'icons':
-                        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-
                         foreach($files as $icon) {
                             switch (\GuzzleHttp\Psr7\mimetype_from_filename($icon)) {
                                 case 'image/png':

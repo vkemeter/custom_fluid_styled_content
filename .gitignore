@@ -1,0 +1,5 @@
+/Configuration/TypoScript/*
+/Configuration/TCA/Overrides/*
+/Configuration/TCA/*
+/Configuration/PageTS/*
+/ext_tables.sql

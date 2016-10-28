@@ -9,7 +9,7 @@ mod.wizards {
 					{{NAME|strtolower}} {
 						# need to build a posibility to add
 						# a preset icon. not done yet.
-						iconIdentifier = custom-fluid-styled-content-{{NAME|strtolower}}
+						iconIdentifier = custom-fluid-styled-content-preset
                         title = {{NAME}}
                         description = {{NAME}}
                         tt_content_defValues {

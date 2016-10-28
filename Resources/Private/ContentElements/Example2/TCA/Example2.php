@@ -11,7 +11,7 @@ call_user_func(
                             strtolower($name) => [
                                 $name,
                                 $name,
-                                'content-textmedia'
+                                'custom-fluid-styled-content-example2'
                             ]
                         ]
                     ]
