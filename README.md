@@ -1,4 +1,4 @@
-# CustomFluidStyledContent
+# custom_fluid_styled_content
 
 This small Extension helps You creating Custom Fluid Styled Content Elements for TYPO3. It will handle for You placing Your files to the correct places. Just copy the folder containing all needed files on one place and You are ready to go.
 
