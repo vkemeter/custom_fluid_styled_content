@@ -1,3 +1,4 @@
+/Resources/Public/*
 /Configuration/TypoScript/*
 /Configuration/TCA/Overrides/*
 /Configuration/TCA/*
