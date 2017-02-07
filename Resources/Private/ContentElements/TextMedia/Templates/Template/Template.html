@@ -1,0 +1,144 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+	<f:layout name="Layout"/>
+
+	<f:section name="Main">
+		<div>
+			<f:render partial="Header" arguments="{_all}" />
+
+			<f:if condition="{gallery.rows}">
+				<aside {f:if(condition: '{data.bodytext}', then: '', else: 'class="no-text"')}>
+
+					<f:comment>
+						============ GALLERY WRAP ============
+					</f:comment>
+					<f:if condition="{data.tx_cfsc_isgallery}">
+						<div class="gallery">
+					</f:if>
+
+					<f:if condition="{singleImage}">
+						<f:then>
+							<figure>
+								<picture>
+									<f:if condition="{responsive}">
+										<f:for each="{responsive}" as="resize" key="min-width" iteration="i">
+											<!-- {min-width} -->
+											<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+										</f:for>
+									</f:if>
+
+									<img src="<f:uri.image image="{singleImage.file}" maxWidth="{singleImage.resize}" />" class="" />
+
+								</picture>
+								<f:if condition="{asset.columns.1.media.description}">
+									<figcaption>{asset.columns.1.media.description}</figcaption>
+								</f:if>
+							</figure>
+						</f:then>
+						<f:else>
+							<f:render section="multipleImages" arguments="{_all}" />
+						</f:else>
+					</f:if>
+
+					<f:comment>
+						============ GALLERY WRAP END ============
+					</f:comment>
+					<f:if condition="{data.tx_cfsc_isgallery}">
+						</div>
+					</f:if>
+
+				</aside>
+			</f:if>
+
+			<f:if condition="{data.bodytext}">
+				<article>
+					<f:format.html>{data.bodytext}</f:format.html>
+				</article>
+			</f:if>
+		</div>
+
+	</f:section>
+
+	<f:section name="multipleImages">
+		<f:for each="{gallery.rows}" as="asset" iteration="i">
+			<figure>
+				<f:if condition="{asset.columns.1.media.link}">
+					<f:then>
+						<f:link.typolink
+								parameter="{asset.columns.1.media.link}"
+								additionalAttributes="{f:if(condition: '{data.image_zoom}', then: '{rel : \'lightbox[]\'}')}">
+							<f:render section="media" arguments="{_all}" />
+						</f:link.typolink>
+					</f:then>
+					<f:else>
+						<f:if condition="{data.image_zoom}">
+							<f:then>
+								<f:link.typolink
+										parameter="{f:uri.image(image: '{asset.columns.1.media}')}"
+										additionalAttributes="{rel : 'lightbox[]'}">
+									<f:render section="media" arguments="{_all}" />
+								</f:link.typolink>
+							</f:then>
+							<f:else>
+								<f:render section="media" arguments="{_all}" />
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+
+				<f:if condition="{asset.columns.1.media.description}">
+					<figcaption>{asset.columns.1.media.description}</figcaption>
+				</f:if>
+			</figure>
+		</f:for>
+	</f:section>
+
+	<f:section name="media">
+		<f:if condition="{data.tx_cfsc_isgallery}">
+			<f:then>
+				<f:image
+						image="{asset.columns.1.media}"
+						width="200"
+						height="150c"
+						alt="{asset.columns.1.media.alternative}"
+						title="{asset.columns.1.media.title}"
+				/>
+			</f:then>
+			<f:else>
+				<f:if condition="{responsive}">
+					<f:then>
+						<picture>
+							<f:for each="{responsive}" as="resize" key="min-width">
+								<f:if condition="{resize.file}">
+									<f:then>
+										<!-- {min-width} -->
+										<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+									</f:then>
+									<f:else>
+										<!-- {min-width} : {resize.maxwidth} -->
+										<source srcset="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+									</f:else>
+								</f:if>
+							</f:for>
+
+							<img class="" src="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" />" alt="{asset.columns.1.media.alternative}" title="{asset.columns.1.media.title}" />
+						</picture>
+					</f:then>
+					<f:else>
+						<f:image
+								image="{asset.columns.1.media}"
+								width="{asset.columns.1.dimensions.width}"
+								height="{asset.columns.1.dimensions.height}"
+								alt="{asset.columns.1.media.alternative}"
+								title="{asset.columns.1.media.title}"
+								class=""
+						/>
+					</f:else>
+				</f:if>
+			</f:else>
+		</f:if>
+	</f:section>
+</div>
+
+
+

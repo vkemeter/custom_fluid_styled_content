@@ -1,0 +1,7 @@
+.responsive-images--container {
+	background: red;
+}
+
+.responsive-images--container .upper {
+	text-transform: uppercase;
+}

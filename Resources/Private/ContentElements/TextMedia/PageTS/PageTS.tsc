@@ -1,0 +1,27 @@
+# custom content elements
+mod.wizards {
+    newContentElement {
+        wizardItems {
+            customFluidStyledContent {
+				elements {
+					TextMedia {
+						iconIdentifier = content-textmedia
+                        title = Text/Media
+                        description = Place Text & Media
+                        tt_content_defValues {
+                            CType = TextMedia
+                        }
+                    }
+               }
+
+				show := addToList(TextMedia)
+			}
+        }
+    }
+}
+
+mod.web_layout.tt_content.preview {
+	TextMedia = EXT:CustomFluidStyledContent/Resources/Private/ContentElements/TextMedia/Templates/Backend/Layout.html
+}
+
+TCEFORM.tt_content.imageorient.removeItems = 1, 2, 9, 10

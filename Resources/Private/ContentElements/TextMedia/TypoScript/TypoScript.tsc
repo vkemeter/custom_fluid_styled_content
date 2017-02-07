@@ -1,0 +1,64 @@
+tt_content{
+	TextMedia = FLUIDTEMPLATE
+	TextMedia {
+	    templateName = Template
+
+		templateRootPaths {
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/TextMedia/Templates/Template/
+		}
+
+		partialRootPaths {
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/TextMedia/Templates/Partial/
+		}
+
+		layoutRootPaths {
+			10 = EXT:custom_fluid_styled_content/Resources/Private/ContentElements/TextMedia/Templates/Layout/
+		}
+
+		dataProcessing {
+			10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+			10 {
+			 	references.fieldName = assets
+			}
+
+			20 = TYPO3\CMS\Frontend\DataProcessing\GalleryProcessor
+			20 {
+				numberOfColumns = 1
+				maxGalleryWidth = 10000
+			}
+
+			30 = VK\CustomFluidStyledContent\DataProcessing\ResponsiveProcessor
+			30 {
+				fieldName = tx_cfsc_responsive
+				as = responsive
+
+				# min widths
+				breakpoints {
+					xs = 320px
+					sm = 544px
+					md = 768px
+					lg = 992px
+					xl = 1260px
+				}
+			}
+		}
+	}
+}
+
+config.tx_extbase {
+	persistence {
+		classes {
+			TYPO3\CMS\Extbase\Domain\Model\FileReference {
+				subclasses {
+					FileReference = VK\CustomFluidStyledContent\Domain\Model\FileReference
+				}
+			}
+
+			VK\CustomFluidStyledContent\Domain\Model\FileReference {
+				mapping {
+					tableName = sys_file_reference
+				}
+			}
+		}
+	}
+}
