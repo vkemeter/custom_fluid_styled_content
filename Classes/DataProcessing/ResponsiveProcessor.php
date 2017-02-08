@@ -16,12 +16,16 @@ class ResponsiveProcessor implements DataProcessorInterface
         }
 
         $originalValue = $cObj->data[$fieldName];
-
         // Set the target variable
         $targetVariableName = $cObj->stdWrapValue('as', $processorConfiguration, $fieldName);
         $singleImage = false;
+        $json = [];
 
-        foreach(json_decode($originalValue) as $key => $value) {
+        if ($originalValue !== null) {
+            $json = json_decode($originalValue);
+        }
+
+        foreach($json as $key => $value) {
             if ($value->value != '') {
                 $responsive[$processorConfiguration['breakpoints.'][substr($value->name, -2)]]['maxwidth'] = (int)$value->value;
             }
