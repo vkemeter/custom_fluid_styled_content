@@ -16,7 +16,6 @@ class ResponsiveProcessor implements DataProcessorInterface
         }
 
         $originalValue = $cObj->data[$fieldName];
-        // Set the target variable
         $targetVariableName = $cObj->stdWrapValue('as', $processorConfiguration, $fieldName);
         $singleImage = false;
         $json = [];
@@ -35,6 +34,11 @@ class ResponsiveProcessor implements DataProcessorInterface
         }
 
         foreach($processedData['files'] as $file) {
+            if ($file->getProperty('crop') != '') {
+                $crop = json_decode($file->getProperty('crop'), true);
+                $responsive = array_replace_recursive($responsive, $crop);
+            }
+
             if ($file->getProperty('tx_cfsc_responsive') != '') {
                 $singleImage = true;
                 $responsive[$file->getProperty('tx_cfsc_responsive')]['file'] = $file;

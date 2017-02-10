@@ -23,7 +23,7 @@
 									<f:if condition="{responsive}">
 										<f:for each="{responsive}" as="resize" key="min-width" iteration="i">
 											<!-- {min-width} -->
-											<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+											<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
 										</f:for>
 									</f:if>
 
@@ -112,16 +112,16 @@
 								<f:if condition="{resize.file}">
 									<f:then>
 										<!-- {min-width} -->
-										<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+										<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
 									</f:then>
 									<f:else>
 										<!-- {min-width} : {resize.maxwidth} -->
-										<source srcset="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" />" media="(min-width: {min-width})">
+										<source srcset="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
 									</f:else>
 								</f:if>
 							</f:for>
 
-							<img class="" src="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" />" alt="{asset.columns.1.media.alternative}" title="{asset.columns.1.media.title}" />
+							<img class="" src="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" cropVariant="1260px" />" alt="{asset.columns.1.media.alternative}" title="{asset.columns.1.media.title}" />
 						</picture>
 					</f:then>
 					<f:else>
