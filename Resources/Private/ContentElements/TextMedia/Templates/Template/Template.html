@@ -1,6 +1,9 @@
-<div xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html
+		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  	xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+	  	data-namespace-typo3-fluid="true">
 
-	<f:layout name="Layout"/>
+<f:layout name="Layout"/>
 
 	<f:section name="Main">
 		<div>
@@ -20,15 +23,7 @@
 						<f:then>
 							<figure>
 								<picture>
-									<f:if condition="{responsive}">
-										<f:for each="{responsive}" as="resize" key="min-width" iteration="i">
-											<!-- {min-width} -->
-											<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
-										</f:for>
-									</f:if>
-
-									<img src="<f:uri.image image="{singleImage.file}" maxWidth="{singleImage.resize}" />" class="" />
-
+									<f:render section="srcset" arguments="{responsive : responsive, image : singleImage.file}" />
 								</picture>
 								<f:if condition="{asset.columns.1.media.description}">
 									<figcaption>{asset.columns.1.media.description}</figcaption>
@@ -46,7 +41,6 @@
 					<f:if condition="{data.tx_cfsc_isgallery}">
 						</div>
 					</f:if>
-
 				</aside>
 			</f:if>
 
@@ -108,20 +102,7 @@
 				<f:if condition="{responsive}">
 					<f:then>
 						<picture>
-							<f:for each="{responsive}" as="resize" key="min-width">
-								<f:if condition="{resize.file}">
-									<f:then>
-										<!-- {min-width} -->
-										<source srcset="<f:uri.image image="{resize.file}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
-									</f:then>
-									<f:else>
-										<!-- {min-width} : {resize.maxwidth} -->
-										<source srcset="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" cropVariant="{min-width}" />" media="(min-width: {min-width})">
-									</f:else>
-								</f:if>
-							</f:for>
-
-							<img class="" src="<f:uri.image image="{asset.columns.1.media}" maxWidth="{resize.maxwidth}" cropVariant="1260px" />" alt="{asset.columns.1.media.alternative}" title="{asset.columns.1.media.title}" />
+							<f:render section="srcset" arguments="{responsive : responsive, image : asset.columns.1.media}" />
 						</picture>
 					</f:then>
 					<f:else>
@@ -131,12 +112,32 @@
 								height="{asset.columns.1.dimensions.height}"
 								alt="{asset.columns.1.media.alternative}"
 								title="{asset.columns.1.media.title}"
-								class=""
 						/>
 					</f:else>
 				</f:if>
 			</f:else>
 		</f:if>
+	</f:section>
+
+	<f:section name="srcset">
+		<f:for each="{responsive}" as="resize" key="min-width">
+			<v:variable.set name="retina" value="{v:math.product(a: resize.maxwidth, b: 2)}" />
+
+			<f:if condition="{resize.file}">
+				<f:then>
+					<!-- {min-width} -->
+					<source srcset="{f:uri.image(image: resize.file, maxWidth: retina, cropVariant: min-width)}" media="(min-width: {min-width}) and (-webkit-min-device-pixel-ratio: 2)">
+					<source srcset="{f:uri.image(image: resize.file, maxWidth: resize.maxwidth, cropVariant: min-width)}" media="(min-width: {min-width})">
+				</f:then>
+				<f:else>
+					<!-- {min-width} : {resize.maxwidth} -->
+					<source srcset="{f:uri.image(image: image, maxWidth: retina, cropVariant: min-width)}" media="(min-width: {min-width}) and (-webkit-min-device-pixel-ratio: 2)">
+					<source srcset="{f:uri.image(image: image, maxWidth: resize.maxwidth, cropVariant: min-width)}" media="(min-width: {min-width})">
+				</f:else>
+			</f:if>
+		</f:for>
+
+		<img class="" src="{f:uri.image(image: image, maxWidth: resize.maxwidth, cropVariant: '1200px')}" alt="{image.alternative}" title="{image.title}" />
 	</f:section>
 </div>
 

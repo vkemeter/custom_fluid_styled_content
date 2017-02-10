@@ -42,10 +42,10 @@ class JsonElement extends AbstractNode implements NodeInterface
         // CE konfiguriert. = nicht gut.
         $breakpoints = [
             'xs' => '320px',
-            'sm' => '544px',
+            'sm' => '576px',
             'md' => '768px',
             'lg' => '992px',
-            'xl' => '1260px',
+            'xl' => '1200px',
         ];
 
         $view->assignMultiple([

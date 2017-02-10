@@ -11,10 +11,10 @@ call_user_func(
                     'items' => [
                         ['', ''],
                         ['xs', '320px'],
-                        ['sm', '544px'],
+                        ['sm', '576px'],
                         ['md', '768px'],
                         ['lg', '992px'],
-                        ['xl', '1260px'],
+                        ['xl', '1200px'],
                     ]
                 ],
             ],
@@ -49,7 +49,7 @@ call_user_func(
                     'config' => [
                         'type' => 'imageManipulation',
                         'cropVariants' => [
-                            '1260px' => [
+                            '1200px' => [
                                 'title' => 'XL',
                                 'allowedAspectRatios' => $allowedAspectRatios,
                             ],
@@ -61,7 +61,7 @@ call_user_func(
                                 'title' => 'MD',
                                 'allowedAspectRatios' => $allowedAspectRatios,
                             ],
-                            '544px' => [
+                            '576px' => [
                                 'title' => 'SM',
                                 'allowedAspectRatios' => $allowedAspectRatios,
                             ],
